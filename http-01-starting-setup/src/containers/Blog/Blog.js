@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Posts from '../Posts/Posts';
+import NewPost from '../NewPost/NewPost';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import './Blog.css';
-import { Route } from 'react-router-dom';
-
 class Blog extends Component {
 
     render () {
@@ -12,12 +12,16 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/new-post">New Posts</a></li>
+                            <li><NavLink to="/posts">Posts</NavLink></li>
+                            <li><NavLink to={{pathname:"/new-post"}}>New Post</NavLink></li>
                         </ul>
                     </nav>
                 </header>
-                <Route path="/" exact component={Posts} />
+                <Switch>
+                    <Route path="/posts" component={Posts} />
+                    <Route path="/new-post" component={NewPost} />
+                    <Redirect from="/" to="/posts" />
+                </Switch>
             </div>
         );
     }
